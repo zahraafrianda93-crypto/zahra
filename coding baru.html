@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Cinta Romantis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #fce7f3 0%, #fda4af 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            75% { transform: rotate(-2deg); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .main-image {
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 1.5rem;
+            margin: 0 auto 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .envelope-image {
+            width: 320px;
+            height: 320px;
+            object-fit: contain;
+            margin: 0 auto 2rem;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        .crying-image {
+            width: 320px;
+            height: 320px;
+            object-fit: contain;
+            margin: 0 auto 2rem;
+            animation: shake 1s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #ec4899;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #f43f5e;
+            margin-bottom: 1.5rem;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        h3 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ec4899;
+            margin-bottom: 2rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .subtitle {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f43f5e;
+            margin-bottom: 2rem;
+            animation: wiggle 4s ease-in-out infinite;
+        }
+
+        .emoticon {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #4b5563;
+        }
+
+        .description {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .button {
+            background: #ec4899;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            margin: 0.5rem;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            background: #db2777;
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .button.green {
+            background: #10b981;
+        }
+
+        .button.green:hover {
+            background: #059669;
+        }
+
+        .button.gray {
+            background: #6b7280;
+        }
+
+        .button.gray:hover {
+            background: #4b5563;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: fadeIn 0.5s ease-in-out 0.5s both;
+        }
+
+        .message-text {
+            font-size: 1.125rem;
+            color: #374151;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 2.5rem; }
+            .subtitle { font-size: 2rem; }
+            .main-image, .envelope-image, .crying-image {
+                width: 250px;
+                height: 250px;
+            }
+            .button {
+                font-size: 1.25rem;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="screen active" id="welcome">
+            <img src="foto baru.jpg" 
+                 alt="Cute Sanrio Characters" class="main-image">
+            
+            <h1>Selamat dua tahun dua bulan!</h1>
+            <h2>Lebih dari itu !</h2>
+            
+            <div class="emoticon">(o◕‿◕o)</div>
+            
+            <p class="description">
+                Klik Tombol Berikutnya!! (つ◔◡◔)つ♥
+            </p>
+            
+            <button class="button" onclick="showScreen('envelope')">
+                Berikutnya!! ^w^
+            </button>
+        </div>
+
+        <!-- Envelope Screen -->
+        <div class="screen" id="envelope">
+            <img src="https://public.youware.com/users-website-assets/prod/92210f35-5389-4dca-8514-c971be40f3cd/09b8e0f52db04fedbf7afb9f139d2e36.png" 
+                 alt="Pink Envelope" class="envelope-image">
+            
+             <h2>apakah kamu mau melihat?</h2>
+            
+            <div class="button-group">
+                <button class="button green" onclick="showScreen('message')">
+                    Bukaa
+                </button>
+                
+                <button class="button gray" onclick="showScreen('rejected')">
+                    Tidak
+                </button>
+            </div>
+        </div>
+
+        <!-- Rejected Screen -->
+        <div class="screen" id="rejected">
+            <img src="fotbar.jpeg" 
+                 alt="Cute Character Crying" class="crying-image">
+            
+            <h2>Awh... Let's try again, Please..? ＞︿＜</h2>
+            
+            <button class="button" onclick="showScreen('envelope')">
+                Again..?
+            </button>
+        </div>
+
+        <!-- Message Screen -->
+        <div class="screen" id="message">
+            <h3>Ooo... Pesan (ノ◔◡◔)ノ♥ !!</h3>
+            
+            <div class="subtitle">haii? (^○^)</div>
+            
+            <div class="message-box">
+                <p class="message-text">
+                    "Tanggal Jadian Kita 17 Agustus 2023".
+                </p>
+                
+                <p class="message-text">
+                   Semoga Seterusnya Kita Selalu Bahagia, Semoga Selalu Bersama.
+                </p>
+                
+                <p class="message-text">
+                    Sekian Terima Kasihh.byeeee
+                </p>
+            </div>
+            
+            <button class="button" onclick="showScreen('welcome')">
+                Mulai Kembali ♥
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screenId) {
+            // Hide all screens
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show target screen
+            setTimeout(() => {
+                document.getElementById(screenId).classList.add('active');
+            }, 200);
+        }
+
+        // Add some extra interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click sound effect simulation
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Add heart floating effect
+            setInterval(createFloatingHeart, 3000);
+        });
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '♥';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.bottom = '0px';
+            heart.style.fontSize = '2rem';
+            heart.style.color = '#ec4899';
+            heart.style.pointerEvents = 'none';
+            heart.style.animation = 'float 4s ease-out forwards';
+            heart.style.zIndex = '1000';
+            
+            // Custom animation for floating hearts
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatUp {
+                    0% {
+                        transform: translateY(0) rotate(0deg);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translateY(-100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            heart.style.animation = 'floatUp 4s ease-out forwards';
+            
+            document.body.appendChild(heart);
+            
+            // Remove heart after animation
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
